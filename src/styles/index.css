@@ -1,0 +1,240 @@
+@import url('https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts.css');
+
+:root {
+  line-height: 1;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark-mode {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  /* min-width: 320px;
+  min-height: 100vh; */
+}
+
+h1 {
+  font-size: 2.2em;
+  /* line-height: 1.1; */
+}
+
+/* button {
+  float: right;
+  border-radius: 8px;
+  border: 1px solid transparent; */
+  /* padding: 0.6em 1.2em; */
+  /* font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+/* } */
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #000000;
+    background-color: #ffffff;
+  }
+
+  h1 {
+    color: #000000;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+  .react-flow__edge-path, .react-flow__connection-path {
+    stroke: #000000
+  } 
+}
+
+
+body {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  font-family: "Computer Modern Serif", serif;
+  background: none;
+  /* font-size: 1.5vh; */
+  padding: 0;
+  -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+.react-flow__pane{
+  cursor: default
+}
+
+.tree-node {
+  z-index: 1001;
+  transform: translateX(-50%) !important;
+  text-align: center;
+}
+
+.react-flow__node {
+  /* padding-right: 2px; */
+  padding: 0;
+  align-items: center;
+  font-size: 22pt;
+  border: none;
+}
+
+.animated {
+  /* animation: jiggle 0.25s; */
+  animation-iteration-count: infinite;
+}
+
+@keyframes jiggle {
+  0% {
+      transform: rotate(-2deg);
+}
+50% {
+    transform: rotate(2deg);
+}
+}
+
+@-webkit-keyframes jiggle {
+  0% {
+      -webkit-transform: rotate(-2deg);
+}
+50% {
+    -webkit-transform: rotate(2deg);
+}
+}
+
+@-moz-keyframes jiggle {
+  0% {
+      -moz-transform: rotate(-2deg);
+}
+50% {
+  -moz-transform: rotate(2deg);
+}
+}
+
+.node-preview {
+  z-index: 1001;
+  color: gray;
+  transform: translateX(-50%);
+}
+
+.react-flow__edge.animated path {
+  stroke: gray
+}
+
+.react-flow__node:hover {
+  cursor: pointer;
+}
+
+.react-flow__node.selected{
+  border: red;
+  /* color: blue; */
+}
+
+.react-flow__handle{
+  background-color: transparent;
+  padding: 2px
+}
+
+.App-logo {
+  height: 5vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  width: 100%;
+  background-color: transparent;
+  padding: 0.2em 0.2em;
+  position: absolute;
+  /* top: 0.2%;
+  left: 0.2%; */
+  /* color-scheme: light dark; */
+  flex-direction: row;
+  line-height: 0;
+}
+
+h1 {
+  /* text-align: center; */
+  font-size: 2.2em;
+  /* color: #242424; */
+  /* font-size: 30pt */
+}
+
+h2 {
+  /* float: right; */
+  /* font-size: 18pt; */
+  align-content: center;
+  font-weight: 100;
+}
+
+.react-flow__edge-path, .react-flow__connection-path {
+  stroke-width: 1px;
+  /* stroke: #000000 */
+}
+
+.button {
+  /* font-family: "Computer Modern Serif", serif; */
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  z-index: 4;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.edgebutton {
+  text-align: center;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 20px;
+  height: 20px;
+  background: #eee;
+  border: 1px solid #fff;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.edgebutton:hover {
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.08);
+  border-color: black;
+}
