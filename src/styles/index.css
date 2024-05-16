@@ -29,7 +29,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex; */
   place-items: center;
   width: 100vw;
   height: 100vh;
@@ -43,21 +43,27 @@ h1 {
 }
 
 /* button {
+  color: inherit;
   float: right;
-  border-radius: 8px;
-  border: 1px solid transparent; */
-  /* padding: 0.6em 1.2em; */
-  /* font-size: 1em;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-/* } */
+  z-index: 50;
+}
 
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+} */
+
+.button {
+  /* text-align: center; */
 }
 
 @media (prefers-color-scheme: light) {
@@ -91,6 +97,7 @@ body {
   background: none;
   /* font-size: 1.5vh; */
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
   -moz-user-select: -moz-none;
    -khtml-user-select: none;
    -webkit-user-select: none;
@@ -99,8 +106,9 @@ body {
 }
 
 .react-flow__pane{
-  cursor: default
+  cursor: default;
 }
+
 
 .tree-node {
   z-index: 1001;
@@ -162,11 +170,6 @@ body {
   cursor: pointer;
 }
 
-.react-flow__node.selected{
-  border: red;
-  /* color: blue; */
-}
-
 .react-flow__handle{
   background-color: transparent;
   padding: 2px
@@ -182,8 +185,8 @@ body {
   background-color: transparent;
   padding: 0.2em 0.2em;
   position: absolute;
-  /* top: 0.2%;
-  left: 0.2%; */
+  top: 0.2%;
+  left: 0.2%;
   /* color-scheme: light dark; */
   flex-direction: row;
   line-height: 0;
@@ -208,15 +211,8 @@ h2 {
   /* stroke: #000000 */
 }
 
-.button {
-  /* font-family: "Computer Modern Serif", serif; */
-  position: absolute;
-  top: 2%;
-  right: 2%;
-  z-index: 4;
-}
-
 .button:hover {
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.08);
   cursor: pointer;
 }
 
@@ -237,4 +233,36 @@ h2 {
 .edgebutton:hover {
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.08);
   border-color: black;
+}
+
+.react-flow__controls {
+  margin: 10px;
+  box-shadow: none;
+}
+
+.react-flow__controls-button {
+  padding: 10px;
+  font-size: 20px;
+  background-color: inherit;
+  display: flex;
+  border: none;
+  color: inherit;
+  stroke: inherit;
+}
+
+.react-flow__controls-button:hover {
+  background: none
+}
+
+.animate-button {
+  animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
 }

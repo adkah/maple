@@ -4,6 +4,8 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
+  Controls,
+  ControlButton
 } from 'reactflow';
 import 'reactflow/dist/base.css';
 import { initialNodes, initialEdges } from './initialTree';
@@ -46,29 +48,28 @@ const edgeTypes = { edge: Edge, edgePreview: EdgePreview }
 
 function Tree() {
   const [editMode, setEditMode] = useState(false)
+  const [showMoreControls, setShowMoreControls] = useState(false)
   const proOptions = { hideAttribution: true };
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  function ResetButton() {
-    function handleClick(){
-      setNodes(initialNodes)
-      setEdges(initialEdges)
+  function resetTree() {
+    let reset = confirm('Reset the tree? All changes will be lost!')
+    if (reset) {setNodes(initialNodes), setEdges(initialEdges)} else return
     }
-  
-    return (
-      <button type='button' className='button' onClick={handleClick}>RESET</button>
-    )
-  }
 
-  function EditButton() {
-    function handleClick(){
-      setEditMode(true)
-    }
+  // function EditButton() {
+  //   function handleClick(){
+  //     setEditMode(true)
+  //   }
   
-    return (
-      <button type='button' className='button' onClick={handleClick}>EDIT</button>
-    )
+  //   return (
+  //     <button type='button' className='button' onClick={handleClick}>EDIT</button>
+  //   )
+  // }
+
+  function toggleControls(){
+    !showMoreControls? setShowMoreControls(true): setShowMoreControls(false)
   }
 
   // Creates connection between 2 nodes
@@ -148,7 +149,7 @@ function Tree() {
   }
 
   // Called to remove any previews on the screen
-  const removePreviews = (params) => {
+  const onPaneClick = (params) => {
     console.log(params)
     const nodesToRemove = []
     const edgesToRemove = []
@@ -167,6 +168,8 @@ function Tree() {
         );
       }
     }
+
+  if (showMoreControls) toggleControls()
   }
 
   function onNodeDrag(event, node){
@@ -238,6 +241,7 @@ function Tree() {
         className="canvas"
         minZoom={1 - (nodes.length * 0.025)}
         maxZoom={1}
+        // defaultViewport={{ x: 50, y: 50, zoom: 1 }}
         fitView={true}
         snapToGrid
         snapGrid={[10, defaultY]}
@@ -248,16 +252,47 @@ function Tree() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onNodeClick={onNodeClick}
-        onPaneClick={removePreviews}
+        onPaneClick={onPaneClick}
         onNodeDrag={onNodeDrag}
         onNodeDragStop={onNodeDragStop}
         onSelectionStart={onSelectionStart}
         proOptions={proOptions}
         connectionLineType={'default'}
       >
-        <ResetButton />
-        <EditButton />
-        <Background variant="none" gap="none" backgroundColor="white" size={1}/>
+      <Controls position='top-right' showZoom={false} showFitView={false} showInteractive={false}>
+        
+        <ControlButton onClick={toggleControls}>
+        <i className="fa fa-gear" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        </ControlButton>
+
+        {showMoreControls && <ControlButton onClick={resetTree}>
+        <i className="fa fa-trash-o animate-button" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        </ControlButton>}
+
+        {showMoreControls && <ControlButton onClick={toggleControls}>
+        <i className="fa fa-close animate-button" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        </ControlButton>}
+
+      </Controls>
+
+      <Controls position='top-right' style={{right: '35px'}} showZoom={false} showFitView={false} showInteractive={false}>
+
+        <ControlButton>
+        {/* <i className="fa fa-info-circle" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i> */}
+        <i class="material-icons">info</i>
+        </ControlButton>
+
+      </Controls>
+
+      <Controls position='bottom-center' showZoom={false} showFitView={false} showInteractive={false}>
+
+        <ControlButton>
+        <i className="fa fa-undo" style={{fontSize: '20px', backgroundColor: 'inherit'}}></i>
+        </ControlButton>
+
+      </Controls>
+
+      <Background variant="none" gap="none" backgroundColor="white" size={1}/>
       </ReactFlow>
     </div>
   );
