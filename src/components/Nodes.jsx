@@ -9,11 +9,10 @@ export function TreeNode(props){
     <>
     <div
     className='tree-node'
-    contentEditable='true'
     >
     <div
     className='node-text'
-    // contentEditable='true'
+    contentEditable='true'
     suppressContentEditableWarning={true}
     spellCheck="false"
     >

@@ -9,6 +9,7 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/base.css';
 import { initialNodes, initialEdges } from './initialTree';
+import { resetNodes, resetEdges } from './resetTree';
 import { TreeNode, NodePreview } from './Nodes';
 import { Edge, EdgePreview } from './Edges';
 
@@ -55,7 +56,7 @@ function Tree() {
 
   function resetTree() {
     let reset = confirm('Reset the tree? All changes will be lost!')
-    if (reset) {setNodes(initialNodes), setEdges(initialEdges)} else return
+    if (reset) {setNodes(resetNodes), setEdges(resetEdges)} else return
     }
 
   // function EditButton() {
@@ -279,7 +280,7 @@ function Tree() {
 
         <ControlButton>
         {/* <i className="fa fa-info-circle" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i> */}
-        <i class="material-icons">info</i>
+        <i className="material-icons">info</i>
         </ControlButton>
 
       </Controls>
