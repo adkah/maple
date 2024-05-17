@@ -48,6 +48,7 @@ const edgeTypes = { edge: Edge, edgePreview: EdgePreview }
 
 
 function Tree() {
+  const [previewActive, setPreviewActive] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [showMoreControls, setShowMoreControls] = useState(false)
   const proOptions = { hideAttribution: true };
@@ -80,11 +81,14 @@ function Tree() {
   );
 
   const onNodeClick = (event, node) => {
+    console.log(edges)
     const newNodeId = (Date.now()).toString();
 
     // If an existing node is being selected
     
-    if (node.type == 'treeNode'){
+    if (node.type == 'treeNode' && !previewActive){
+      setPreviewActive(true)
+
       // Gets position for preview
       const children = []
       var posX = defaultStraightX
@@ -127,6 +131,7 @@ function Tree() {
     // If a preview node is being clicked
 
     else if (node.type == 'nodePreview') {
+      setPreviewActive(false)
 
       // Removes preview nodes
       const updatedNodes = nodes.map(item => {
@@ -151,26 +156,8 @@ function Tree() {
 
   // Called to remove any previews on the screen
   const onPaneClick = (params) => {
-    console.log(params)
-    const nodesToRemove = []
-    const edgesToRemove = []
-
-    for (let i=0; i < nodes.length; i++){
-      if (nodes[i].type == 'nodePreview'){
-        setNodes(
-          nodes.filter(n => n.id !== nodes[i].id)
-        );
-      }
-    }
-    for (let i=0; i < edges.length; i++){
-      if (edges[i].type == 'edgePreview'){
-        setEdges(
-          edges.filter(n => n.id !== edges[i].id)
-        );
-      }
-    }
-
-  if (showMoreControls) toggleControls()
+    removePreviews()
+    if (showMoreControls) toggleControls()
   }
 
   function onNodeDrag(event, node){
@@ -215,12 +202,15 @@ function Tree() {
       }
       }
     }
+    removePreviews()
   }
   
   // Undoes any symmetry animations
   function onNodeDragStop(event, node, nodes){
     const regularEdges = edges.map(item => {
+      if (item.type == 'edge')
         return {...item, animated: false, style: {}}
+      else return {...item, style: {}}
     })
     setEdges(regularEdges)
   }
@@ -232,6 +222,30 @@ function Tree() {
   function toggleEditMode(){
 
   }
+
+  function removePreviews(){
+    setPreviewActive(false)
+
+    const nodesToRemove = []
+    const edgesToRemove = []
+
+    for (let i=0; i < nodes.length; i++){
+      if (nodes[i].type == 'nodePreview'){
+        setNodes(
+          nodes.filter(n => n.id !== nodes[i].id)
+        );
+      }
+    }
+    for (let i=0; i < edges.length; i++){
+      if (edges[i].type == 'edgePreview'){
+        setEdges(
+          edges.filter(n => n.id !== edges[i].id)
+        );
+      }
+    }
+  }
+
+
 
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
