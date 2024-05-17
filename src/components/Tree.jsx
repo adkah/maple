@@ -84,6 +84,8 @@ function Tree() {
     console.log(edges)
     const newNodeId = (Date.now()).toString();
 
+    if (node.type == 'treeNode' && previewActive) {removePreviews()}
+
     // If an existing node is being selected
     
     if (node.type == 'treeNode' && !previewActive){
@@ -244,8 +246,6 @@ function Tree() {
       }
     }
   }
-
-
 
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
