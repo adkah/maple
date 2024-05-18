@@ -1,4 +1,4 @@
-import Tree from './Tree';
+import TreeWithProvider from './Tree';
 
 function Header() {
   return (
@@ -12,7 +12,7 @@ function Maple() {
   return (
     <div className="App">
       <Header />
-      <Tree />
+      <TreeWithProvider />
     </div>
   );
 }

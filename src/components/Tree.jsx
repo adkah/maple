@@ -5,7 +5,9 @@ import ReactFlow, {
   useEdgesState,
   addEdge,
   Controls,
-  ControlButton
+  ControlButton,
+  useReactFlow,
+  ReactFlowProvider
 } from 'reactflow';
 import 'reactflow/dist/base.css';
 import { initialNodes, initialEdges } from './initialTree';
@@ -48,12 +50,50 @@ const edgeTypes = { edge: Edge, edgePreview: EdgePreview }
 
 
 function Tree() {
+  const tree = useReactFlow()
   const [previewActive, setPreviewActive] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [showMoreControls, setShowMoreControls] = useState(false)
   const proOptions = { hideAttribution: true };
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  function downloadTree(){
+    const treeFile = tree.toObject()
+    console.log(typeof treeFile)
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(treeFile, null, 2)], {
+      type: "application/json"
+    }));
+    a.setAttribute("download", "MyTree.json");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  function uploadTree() {
+    var input = document.createElement('input');
+    input.type = 'file';
+
+    input.onchange = e => { 
+
+      // getting a hold of the file reference
+      var file = e.target.files[0]; 
+   
+      // setting up the reader
+      var reader = new FileReader();
+      reader.readAsText(file,'UTF-8');
+   
+      // here we tell the reader what to do when it's done reading...
+      reader.onload = readerEvent => {
+         var content = readerEvent.target.result; // this is the content!
+         var userTree = JSON.parse(content)
+         setNodes(userTree.nodes)
+         setEdges(userTree.edges)
+      }
+   }
+   input.click();
+  }
 
   function resetTree() {
     let reset = confirm('Reset the tree? All changes will be lost!')
@@ -280,15 +320,27 @@ function Tree() {
         <i className="fa fa-gear" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
         </ControlButton>
 
-        {showMoreControls && <ControlButton onClick={resetTree}>
-        <i className="fa fa-trash-o animate-button" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
-        </ControlButton>}
-
-        {showMoreControls && <ControlButton onClick={toggleControls}>
-        <i className="fa fa-close animate-button" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
-        </ControlButton>}
-
       </Controls>
+
+       {showMoreControls && <Controls position='top-right' style={{top: '35px'}} showZoom={false} showFitView={true} showInteractive={true}>
+
+        <ControlButton onClick={resetTree}>
+        <i className="fa fa-trash-o animate-button" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        </ControlButton>
+
+        <ControlButton onClick={toggleControls}>
+        <i className="fa fa-close animate-button" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        </ControlButton>
+
+        <ControlButton onClick={downloadTree}>
+        <i className="fa fa-download" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        </ControlButton>
+
+        <ControlButton onClick={uploadTree}>
+        <i className="fa fa-upload" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        </ControlButton>
+
+      </Controls>}
 
       <Controls position='top-right' style={{right: '35px'}} showZoom={false} showFitView={false} showInteractive={false}>
 
@@ -313,4 +365,13 @@ function Tree() {
   );
 }
 
-export default Tree;
+function TreeWithProvider(props) {
+  return (
+    <ReactFlowProvider>
+      <Tree {...props} />
+    </ReactFlowProvider>
+  );
+}
+
+
+export default TreeWithProvider;
