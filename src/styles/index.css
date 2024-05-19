@@ -242,9 +242,12 @@ h2 {
 
 .react-flow__controls-button {
   padding: 10px;
+  padding-right: 5px;
   font-size: 20px;
   background-color: inherit;
   display: flex;
+  justify-content: right;
+  white-space: nowrap;
   border: none;
   color: inherit;
   stroke: inherit;
@@ -252,6 +255,24 @@ h2 {
 
 .react-flow__controls-button:hover {
   background: none
+}
+
+.button-label{
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.info-popup{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #242424;
+  z-index: 2000;
+  border-radius: 25px;
+  border-color: #000000;
 }
 
 .animate-button {

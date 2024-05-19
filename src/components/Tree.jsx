@@ -14,6 +14,7 @@ import { initialNodes, initialEdges } from './initialTree';
 import { resetNodes, resetEdges } from './resetTree';
 import { TreeNode, NodePreview } from './Nodes';
 import { Edge, EdgePreview } from './Edges';
+import InfoDisplay from './InfoDisplay';
 
 // function toggleDark(){
 //   if ('dark-mode' in  element.classList)
@@ -51,12 +52,17 @@ const edgeTypes = { edge: Edge, edgePreview: EdgePreview }
 
 function Tree() {
   const tree = useReactFlow()
+  const [infoDisplay, setInfoDisplay] = useState(false)
   const [previewActive, setPreviewActive] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [showMoreControls, setShowMoreControls] = useState(false)
   const proOptions = { hideAttribution: true };
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  function showInfo(){
+    setInfoDisplay(!infoDisplay)
+  }
 
   function downloadTree(){
     const treeFile = tree.toObject()
@@ -111,7 +117,7 @@ function Tree() {
   // }
 
   function toggleControls(){
-    !showMoreControls? setShowMoreControls(true): setShowMoreControls(false)
+    setShowMoreControls(!showMoreControls)
   }
 
   // Creates connection between 2 nodes
@@ -244,7 +250,8 @@ function Tree() {
       }
       }
     }
-    removePreviews()
+    removePreviews();
+    showMoreControls();
   }
   
   // Undoes any symmetry animations
@@ -317,36 +324,39 @@ function Tree() {
       <Controls position='top-right' showZoom={false} showFitView={false} showInteractive={false}>
         
         <ControlButton onClick={toggleControls}>
-        <i className="fa fa-gear" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        <i class="material-icons">more_vert</i>
         </ControlButton>
 
       </Controls>
 
-       {showMoreControls && <Controls position='top-right' style={{top: '35px'}} showZoom={false} showFitView={true} showInteractive={true}>
+       {showMoreControls && <Controls className='popup-settings 'position='top-right' style={{top: '35px'}} showZoom={false} showFitView={false} showInteractive={false}>
 
         <ControlButton onClick={resetTree}>
-        <i className="fa fa-trash-o animate-button" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
-        </ControlButton>
-
-        <ControlButton onClick={toggleControls}>
-        <i className="fa fa-close animate-button" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
-        </ControlButton>
-
-        <ControlButton onClick={downloadTree}>
-        <i className="fa fa-download" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        <div className='button-label'>Reset</div>
+        <i class="material-icons">delete_forever</i>
         </ControlButton>
 
         <ControlButton onClick={uploadTree}>
-        <i className="fa fa-upload" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i>
+        <div className='button-label'>Upload</div>
+        <i class="material-icons">file_upload</i>
+        </ControlButton>
+
+        <ControlButton onClick={downloadTree} aria-label='download'>
+        <div className='button-label'>Download</div>
+        <i class="material-icons">file_download</i>
+        </ControlButton>
+
+        <ControlButton onClick={toggleControls}>
+        <i className="material-icons">cancel</i>
         </ControlButton>
 
       </Controls>}
 
       <Controls position='top-right' style={{right: '35px'}} showZoom={false} showFitView={false} showInteractive={false}>
 
-        <ControlButton>
+        <ControlButton onClick={showInfo}>
         {/* <i className="fa fa-info-circle" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i> */}
-        <i className="material-icons">info</i>
+        <i className="material-icons">info_outline</i>
         </ControlButton>
 
       </Controls>
@@ -354,11 +364,12 @@ function Tree() {
       <Controls position='bottom-center' showZoom={false} showFitView={false} showInteractive={false}>
 
         <ControlButton>
-        <i className="fa fa-undo" style={{fontSize: '20px', backgroundColor: 'inherit'}}></i>
+        <i className="material-icons">undo</i>
         </ControlButton>
 
       </Controls>
 
+      {infoDisplay && <InfoDisplay/>}
       <Background variant="none" gap="none" backgroundColor="white" size={1}/>
       </ReactFlow>
     </div>
