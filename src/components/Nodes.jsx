@@ -2,7 +2,7 @@ import {
   Handle,
   Position,
 } from 'reactflow';
-import MovementHandle from './Handles';
+import TreeHandle from './Handles';
 
 export function TreeNode(props){
   return (
@@ -21,8 +21,9 @@ export function TreeNode(props){
     </div>
     </div>
 
-    <MovementHandle type='target' position={Position.Top}/>
-    <MovementHandle type='source' position={Position.Bottom}/>
+    <TreeHandle type='target' position={Position.Top}/>
+    <TreeHandle type='target' position={Position.Bottom}/>
+    <TreeHandle type='source' position={Position.Bottom}/>
     </div>
     </>
   );

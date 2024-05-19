@@ -2,7 +2,7 @@ import {
   Handle,
 } from 'reactflow';
 
-export default function MovementHandle(props){
+export default function TreeHandle(props){
     return (
       <Handle
       type={props.type}

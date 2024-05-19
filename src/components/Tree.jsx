@@ -228,7 +228,10 @@ function Tree() {
     for (let i=0; i < nodes.length; i++){
 
       // Activates symmetry indicator
-      if (node.parentId === nodes[i].parentId && node.position.x === -nodes[i].position.x && node.position.y === nodes[i].position.y){
+      if (
+        node.parentId === nodes[i].parentId && node.position.x === -nodes[i].position.x && node.position.y === nodes[i].position.y
+        || node.position.x == 0
+      ){
         const symmetryEdges = edges.map(item => {
           if (item.source === node.parentId){
             return {...item, animated: true, style: {stroke: 'green'}}
@@ -237,6 +240,16 @@ function Tree() {
         })
         setEdges(symmetryEdges)
       }
+
+      // else if (node.parentId == nodes[i].id && node.position.x == nodes[i].position.x){
+      //   const symmetryEdges = edges.map(item => {
+      //     if (item.source === node.parentId){
+      //       return {...item, animated: true, style: {stroke: 'green'}}
+      //     }
+      //     else return item
+      //   })
+      //   setEdges(symmetryEdges)
+      // }
 
       // Deactivates symmetry indicator
       else {
@@ -324,7 +337,7 @@ function Tree() {
       <Controls position='top-right' showZoom={false} showFitView={false} showInteractive={false}>
         
         <ControlButton onClick={toggleControls}>
-        <i class="material-icons">more_vert</i>
+        <i className="material-icons">more_vert</i>
         </ControlButton>
 
       </Controls>
