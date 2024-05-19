@@ -4,6 +4,8 @@ import {
   useNodes,
   EdgeLabelRenderer,
   useReactFlow,
+  getSmoothStepPath,
+  getBezierPath,
 } from 'reactflow';
 
 export function Edge({ target, source, id, sourceX, sourceY, targetX, targetY }){
@@ -59,7 +61,7 @@ export function Edge({ target, source, id, sourceX, sourceY, targetX, targetY })
       </>
     ) 
   }
-  
+
 export function EdgePreview({ sourceX, sourceY, targetX, targetY }){
   const [edgePath] = getStraightPath({
     sourceX,
@@ -67,7 +69,7 @@ export function EdgePreview({ sourceX, sourceY, targetX, targetY }){
     targetX,
     targetY,
   });
-  
+  console.log(edgePath)
   return (
     <BaseEdge path={edgePath}/>
   )

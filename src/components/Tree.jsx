@@ -120,11 +120,21 @@ function Tree() {
     setShowMoreControls(!showMoreControls)
   }
 
-  // Creates connection between 2 nodes
-  const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges],
-  );
+  function onConnect(params){
+    for (let i=0; i<nodes.length; i++){
+      if (nodes[i].id == params.target){
+        var connectedNode = nodes[i].id
+        break;
+      }
+    }
+    var newConnection = {...params, targetHandle: connectedNode, type: 'smoothstep'}
+    console.log(newConnection)
+    setEdges([...edges, newConnection]);
+  }
+
+  // function onConnect(params){
+  //   console.log(params)
+  // }
 
   const onNodeClick = (event, node) => {
     console.log(edges)
