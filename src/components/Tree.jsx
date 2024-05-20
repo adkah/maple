@@ -12,7 +12,7 @@ import ReactFlow, {
 import 'reactflow/dist/base.css';
 import { initialNodes, initialEdges } from './initialTree';
 import { resetNodes, resetEdges } from './resetTree';
-import { TreeNode, NodePreview } from './Nodes';
+import { TreeNode, NodePreview, TriangleNode } from './Nodes';
 import { Edge, EdgePreview } from './Edges';
 import InfoDisplay from './InfoDisplay';
 
@@ -23,7 +23,7 @@ import InfoDisplay from './InfoDisplay';
 // }
 
 // function exportTree(nodes){
-//   console.log('here ya go')
+//   loglog('here ya go')
 //   console.log(nodes)
 //   var qTreeExport = "\"Tree [."
 
@@ -46,7 +46,7 @@ import InfoDisplay from './InfoDisplay';
 const defaultX = 50;
 const defaultY = 80;
 const defaultStraightX = 0;
-const nodeTypes = { treeNode: TreeNode, nodePreview: NodePreview}
+const nodeTypes = { treeNode: TreeNode, nodePreview: NodePreview, triangleNode: TriangleNode}
 const edgeTypes = { edge: Edge, edgePreview: EdgePreview }
 
 
@@ -66,7 +66,6 @@ function Tree() {
 
   function downloadTree(){
     const treeFile = tree.toObject()
-    console.log(typeof treeFile)
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(treeFile, null, 2)], {
       type: "application/json"
@@ -128,7 +127,6 @@ function Tree() {
       }
     }
     var newConnection = {...params, targetHandle: connectedNode, type: 'smoothstep'}
-    console.log(newConnection)
     setEdges([...edges, newConnection]);
   }
 
@@ -137,14 +135,13 @@ function Tree() {
   // }
 
   const onNodeClick = (event, node) => {
-    console.log(edges)
     const newNodeId = (Date.now()).toString();
 
-    if (node.type == 'treeNode' && previewActive) {removePreviews()}
+    if (node.type !== 'previewNode' && previewActive) {removePreviews()}
 
     // If an existing node is being selected
     
-    if (node.type == 'treeNode' && !previewActive){
+    if (node.type !== 'previewNode' && !previewActive){
       setPreviewActive(true)
 
       // Gets position for preview
@@ -274,7 +271,7 @@ function Tree() {
       }
     }
     removePreviews();
-    showMoreControls();
+    setShowMoreControls(false);
   }
   
   // Undoes any symmetry animations
@@ -354,19 +351,24 @@ function Tree() {
 
        {showMoreControls && <Controls className='popup-settings 'position='top-right' style={{top: '35px'}} showZoom={false} showFitView={false} showInteractive={false}>
 
+       <ControlButton onClick={setEditMode}>
+        <div className='button-label'>Edit</div>
+        <i className="material-icons">edit</i>
+        </ControlButton>
+
         <ControlButton onClick={resetTree}>
         <div className='button-label'>Reset</div>
-        <i class="material-icons">delete_forever</i>
+        <i className="material-icons">delete_forever</i>
         </ControlButton>
 
         <ControlButton onClick={uploadTree}>
         <div className='button-label'>Upload</div>
-        <i class="material-icons">file_upload</i>
+        <i className="material-icons">file_upload</i>
         </ControlButton>
 
         <ControlButton onClick={downloadTree} aria-label='download'>
         <div className='button-label'>Download</div>
-        <i class="material-icons">file_download</i>
+        <i className="material-icons">file_download</i>
         </ControlButton>
 
         <ControlButton onClick={toggleControls}>

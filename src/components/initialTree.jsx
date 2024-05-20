@@ -1,4 +1,4 @@
-const defaultX = 50;
+const defaultX = 65;
 const defaultY = 80;
 const defaultStraightX = 0;
 
@@ -14,14 +14,13 @@ const initialNodes = [
   { id: '9', type: 'treeNode', position: { x: -defaultX, y: defaultY}, data: { label: 'D' }, parentId: '6' },
   { id: '10', type: 'treeNode', position: { x: -defaultStraightX, y: defaultY}, data: { label: 'your' }, parentId: '9' },
   { id: '11', type: 'treeNode', position: { x: defaultX, y: defaultY}, data: { label: 'NP' }, parentId: '6' },
-  { id: '12', type: 'treeNode', position: { x: defaultStraightX, y: defaultY}, data: { label: 'N' }, parentId: '11' },
-  { id: '13', type: 'treeNode', position: { x: defaultStraightX, y: defaultY}, data: { label: 'tree' }, parentId: '12' }
+  { id: '13', type: 'triangleNode', position: { x: defaultStraightX, y: defaultY}, data: { label: 'maple tree.' }, parentId: '11' }
 ];
 
   function getEdges(nodes){
     var edges = []
     for (let i=0; i < nodes.length; i++){
-      if ('parentId' in nodes[i])
+      if (nodes[i].type == 'treeNode' && 'parentId' in nodes[i])
         {
           var currentNode = {
             id: ('e' + nodes[i].parentId + '-' + nodes[i].id),
@@ -31,10 +30,35 @@ const initialNodes = [
           }
           edges.push(currentNode)
         }
+      else if (nodes[i].type == 'triangleNode') {
+        var sourceToLeft = {
+          id: ('e' + nodes[i].parentId + '-' + nodes[i].id + 'triangle-left'),
+          source: nodes[i].parentId,
+          target: nodes[i].id,
+          targetHandle: '13lefttriangle',
+          type: 'edge'
+        }
+        var sourceToRight = {
+          id: ('e' + nodes[i].parentId + '-' + nodes[i].id + 'triangle-right'),
+          source: nodes[i].parentId,
+          target: nodes[i].id,
+          targetHandle: '13righttriangle',
+          type: 'edge'
+        }
+        var leftToRight = {
+          id: ('e' + nodes[i].parentId + '-' + nodes[i].id + 'triangle-middle'),
+          source: nodes[i].id,
+          target: nodes[i].id,
+          sourceHandle: '13lefttrianglesource',
+          targetHandle: '13righttriangle',
+          type: 'edge'
+        }
+        // console.log(sourceToLeft)
+        edges.push(sourceToLeft, sourceToRight, leftToRight)
+      }
     }
     return edges
   }
 
-  const initialEdges = getEdges(initialNodes)
-
-  export { initialNodes, initialEdges }
+const initialEdges = getEdges(initialNodes)
+export { initialNodes, initialEdges }

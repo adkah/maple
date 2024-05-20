@@ -69,7 +69,6 @@ export function EdgePreview({ sourceX, sourceY, targetX, targetY }){
     targetX,
     targetY,
   });
-  console.log(edgePath)
   return (
     <BaseEdge path={edgePath}/>
   )
