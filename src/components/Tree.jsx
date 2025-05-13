@@ -7,7 +7,8 @@ import ReactFlow, {
   Controls,
   ControlButton,
   useReactFlow,
-  ReactFlowProvider
+  ReactFlowProvider,
+  MiniMap
 } from 'reactflow';
 import 'reactflow/dist/base.css';
 import { initialNodes, initialEdges } from './initialTree';
@@ -15,6 +16,8 @@ import { resetNodes, resetEdges } from './resetTree';
 import { TreeNode, NodePreview, TriangleNode } from './Nodes';
 import { Edge, EdgePreview } from './Edges';
 import InfoDisplay from './InfoDisplay';
+import TopBar from './TopBar';
+import Sidebar from './Sidebar';
 
 // function toggleDark(){
 //   if ('dark-mode' in  element.classList)
@@ -54,6 +57,8 @@ function Tree() {
   const tree = useReactFlow()
   const [infoDisplay, setInfoDisplay] = useState(false)
   const [previewActive, setPreviewActive] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedNode, setSelectedNode] = useState(null);
   const [editMode, setEditMode] = useState(false)
   const [showMoreControls, setShowMoreControls] = useState(false)
   const proOptions = { hideAttribution: true };
@@ -119,6 +124,10 @@ function Tree() {
     setShowMoreControls(!showMoreControls)
   }
 
+  function toggleSidebar() {
+    setIsSidebarOpen(!isSidebarOpen)
+  }
+
   function onConnect(params){
     for (let i=0; i<nodes.length; i++){
       if (nodes[i].id == params.target){
@@ -136,6 +145,8 @@ function Tree() {
 
   const onNodeClick = (event, node) => {
     const newNodeId = (Date.now()).toString();
+    setSelectedNode(node);
+    setIsSidebarOpen(true)
 
     if (node.type !== 'previewNode' && previewActive) {removePreviews()}
 
@@ -212,7 +223,9 @@ function Tree() {
   // Called to remove any previews on the screen
   const onPaneClick = (params) => {
     removePreviews()
+    // setIsSidebarOpen(false)
     if (showMoreControls) toggleControls()
+    setSelectedNode(null)
   }
 
   function onNodeDrag(event, node){
@@ -341,7 +354,7 @@ function Tree() {
         proOptions={proOptions}
         connectionLineType={'default'}
       >
-      <Controls position='top-right' showZoom={false} showFitView={false} showInteractive={false}>
+      {/* <Controls position='top-right' showZoom={false} showFitView={false} showInteractive={false}>
         
         <ControlButton onClick={toggleControls}>
         <i className="material-icons">more_vert</i>
@@ -381,7 +394,7 @@ function Tree() {
 
         <ControlButton onClick={showInfo}>
         {/* <i className="fa fa-info-circle" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i> */}
-        <i className="material-icons">info_outline</i>
+        {/* <i className="material-icons">info_outline</i>
         </ControlButton>
 
       </Controls>
@@ -392,11 +405,13 @@ function Tree() {
         <i className="material-icons">undo</i>
         </ControlButton>
 
-      </Controls>
+      </Controls> */}
 
       {infoDisplay && <InfoDisplay/>}
       <Background variant="none" gap="none" backgroundColor="white" size={1}/>
       </ReactFlow>
+      <TopBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
+      <Sidebar isOpen={isSidebarOpen} selectedNode={selectedNode} edges={edges}/>
     </div>
   );
 }
