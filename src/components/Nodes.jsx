@@ -9,10 +9,14 @@ export function TreeNode(props) {
     <>
       <div
         className='tree-node'
+        style={{
+          color: props.selected
+            ? '#2e95d3'
+            : ''
+        }}
       >
         <div
           className='node-text'
-          suppressContentEditableWarning={true}
           spellCheck="false"
         >
           <div className='animated'>
@@ -33,10 +37,14 @@ export function TriangleNode(props) {
     <>
       <div
         className='tree-node'
+        style={{
+          color: props.selected
+            ? '#2e95d3'
+            : ''
+        }}
       >
         <div
           className='node-text'
-          suppressContentEditableWarning={true}
           spellCheck="false"
         >
           <div className='animated'>
@@ -58,7 +66,13 @@ export function TriangleNode(props) {
 
 export function NodePreview(props) {
   return (
-    <div className='node-preview nodrag'>
+    <div className='node-preview nodrag'
+      style={{
+        color: props.selected
+          ? '#2e95d3'
+          : ''
+      }}
+    >
       <div
         className='node-text'
       >

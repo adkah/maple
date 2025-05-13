@@ -147,7 +147,6 @@ function Tree() {
     const newNodeId = (Date.now()).toString();
     setSelectedNode(node);
     setIsSidebarOpen(true)
-    console.log(selectedNode)
 
     if (node.type !== 'previewNode' && previewActive) {removePreviews()}
 

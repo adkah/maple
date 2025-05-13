@@ -179,7 +179,7 @@ body {
 }
 
 .react-flow__handle{
-  background-color: transparent;
+  visibility: hidden;
   padding: 2px
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useReactFlow, getConnectedEdges } from 'reactflow';
+import { useReactFlow } from 'reactflow';
 
 export default function NodeEdges({ selectedNode }) {
   const { getNodes, getEdges } = useReactFlow();

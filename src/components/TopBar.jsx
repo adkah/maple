@@ -37,7 +37,7 @@ function TopBar({ isOpen, toggleSidebar }) {
         }}
         aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
       >
-        <PanelLeft size={'1.5rem'}/>
+        <PanelLeft />
       </button>
 
       {/* your title */}

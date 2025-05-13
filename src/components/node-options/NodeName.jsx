@@ -6,17 +6,15 @@ export default function NodeName({ selectedNode, edges }) {
   const [label, setLabel] = useState(selectedNode.data.label);
   const inputRef = useRef(null);
 
-  console.log(selectedNode)
-
   // Sync local state if a new node is selected
   useEffect(() => {
     setLabel(selectedNode.data.label);
-    if (inputRef.current) {
-      // focus the field...
-      inputRef.current.focus();
-      // ...and select all the text in it
-      inputRef.current.select();
-    }
+    // if (inputRef.current) {
+    //   // focus the field...
+    //   inputRef.current.focus();
+    //   // ...and select all the text in it
+    //   inputRef.current.select();
+    // }
   }, [selectedNode.id, selectedNode.data.label]);
 
   const handleChange = (e) => {
