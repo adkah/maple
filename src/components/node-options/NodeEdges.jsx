@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useReactFlow } from 'reactflow';
 
-export default function NodeEdges({ selectedNode }) {
-  const { getNodes, getEdges } = useReactFlow();
+export default function NodeEdges({ selectedNode, edges }) {
+  const { getNodes } = useReactFlow();
   const [parentNodes, setParentNodes] = useState([]);
   const [childNodes, setChildNodes] = useState([]);
 
   useEffect(() => {
     const nodes = getNodes();
-    const edges = getEdges().filter(e => e.type !== 'edgePreview');
+    const filteredEdges = edges.filter(e => e.type !== 'edgePreview');
 
     // Edges pointing *into* the selected node
-    const parentEdges = edges.filter(e => e.target === selectedNode.id);
+    const parentEdges = filteredEdges.filter(e => e.target === selectedNode.id);
     // Edges pointing *out* from the selected node
-    const childEdges  = edges.filter(e => e.source === selectedNode.id);
+    const childEdges  = filteredEdges.filter(e => e.source === selectedNode.id);
 
     const parents = Array.from(
       new Set(parentEdges.map(e => e.source))
@@ -29,7 +29,7 @@ export default function NodeEdges({ selectedNode }) {
 
     setParentNodes(parents);
     setChildNodes(children);
-  }, [selectedNode]);
+  }, [selectedNode, edges]);
 
   return (
     <div>
