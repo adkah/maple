@@ -328,90 +328,102 @@ function Tree() {
   }
 
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
-      <ReactFlow
-        // nodesDraggable={false}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        className="canvas"
-        minZoom={1 - (nodes.length * 0.025)}
-        maxZoom={1}
-        // defaultViewport={{ x: 50, y: 50, zoom: 1 }}
-        fitView={true}
-        snapToGrid
-        snapGrid={[10, defaultY]}
-        preventScrolling={true}
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onNodeClick={onNodeClick}
-        onPaneClick={onPaneClick}
-        onNodeDrag={onNodeDrag}
-        onNodeDragStop={onNodeDragStop}
-        onSelectionStart={onSelectionStart}
-        proOptions={proOptions}
-        connectionLineType={'default'}
-      >
-      {/* <Controls position='top-right' showZoom={false} showFitView={false} showInteractive={false}>
-        
-        <ControlButton onClick={toggleControls}>
-        <i className="material-icons">more_vert</i>
-        </ControlButton>
-
-      </Controls>
-
-       {showMoreControls && <Controls className='popup-settings 'position='top-right' style={{top: '35px'}} showZoom={false} showFitView={false} showInteractive={false}>
-
-       <ControlButton onClick={setEditMode}>
-        <div className='button-label'>Edit</div>
-        <i className="material-icons">edit</i>
-        </ControlButton>
-
-        <ControlButton onClick={resetTree}>
-        <div className='button-label'>Reset</div>
-        <i className="material-icons">delete_forever</i>
-        </ControlButton>
-
-        <ControlButton onClick={uploadTree}>
-        <div className='button-label'>Upload</div>
-        <i className="material-icons">file_upload</i>
-        </ControlButton>
-
-        <ControlButton onClick={downloadTree} aria-label='download'>
-        <div className='button-label'>Download</div>
-        <i className="material-icons">file_download</i>
-        </ControlButton>
-
-        <ControlButton onClick={toggleControls}>
-        <i className="material-icons">cancel</i>
-        </ControlButton>
-
-      </Controls>}
-
-      <Controls position='top-right' style={{right: '35px'}} showZoom={false} showFitView={false} showInteractive={false}>
-
-        <ControlButton onClick={showInfo}>
-        {/* <i className="fa fa-info-circle" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i> */}
-        {/* <i className="material-icons">info_outline</i>
-        </ControlButton>
-
-      </Controls>
-
-      <Controls position='bottom-center' showZoom={false} showFitView={false} showInteractive={false}>
-
-        <ControlButton>
-        <i className="material-icons">undo</i>
-        </ControlButton>
-
-      </Controls> */}
-
-      {infoDisplay && <InfoDisplay/>}
-      <Background variant="none" gap="none" backgroundColor="white" size={1}/>
-      </ReactFlow>
-      <TopBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
+    <div style={{ 
+      width: '100vw', 
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'row'
+    }}>
       <Sidebar isOpen={isSidebarOpen} selectedNode={selectedNode} edges={edges}/>
+      <div style={{ 
+        flex: 1,
+        position: 'relative',
+        width: '100%',
+        height: '100%'
+      }}>
+        <ReactFlow
+          // nodesDraggable={false}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          className="canvas"
+          minZoom={1 - (nodes.length * 0.025)}
+          maxZoom={1}
+          // defaultViewport={{ x: 50, y: 50, zoom: 1 }}
+          fitView={true}
+          snapToGrid
+          snapGrid={[10, defaultY]}
+          preventScrolling={true}
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onNodeClick={onNodeClick}
+          onPaneClick={onPaneClick}
+          onNodeDrag={onNodeDrag}
+          onNodeDragStop={onNodeDragStop}
+          onSelectionStart={onSelectionStart}
+          proOptions={proOptions}
+          connectionLineType={'default'}
+        >
+        {/* <Controls position='top-right' showZoom={false} showFitView={false} showInteractive={false}>
+          
+          <ControlButton onClick={toggleControls}>
+          <i className="material-icons">more_vert</i>
+          </ControlButton>
+
+        </Controls>
+
+         {showMoreControls && <Controls className='popup-settings 'position='top-right' style={{top: '35px'}} showZoom={false} showFitView={false} showInteractive={false}>
+
+         <ControlButton onClick={setEditMode}>
+          <div className='button-label'>Edit</div>
+          <i className="material-icons">edit</i>
+          </ControlButton>
+
+          <ControlButton onClick={resetTree}>
+          <div className='button-label'>Reset</div>
+          <i className="material-icons">delete_forever</i>
+          </ControlButton>
+
+          <ControlButton onClick={uploadTree}>
+          <div className='button-label'>Upload</div>
+          <i className="material-icons">file_upload</i>
+          </ControlButton>
+
+          <ControlButton onClick={downloadTree} aria-label='download'>
+          <div className='button-label'>Download</div>
+          <i className="material-icons">file_download</i>
+          </ControlButton>
+
+          <ControlButton onClick={toggleControls}>
+          <i className="material-icons">cancel</i>
+          </ControlButton>
+
+        </Controls>}
+
+        <Controls position='top-right' style={{right: '35px'}} showZoom={false} showFitView={false} showInteractive={false}>
+
+          <ControlButton onClick={showInfo}>
+          {/* <i className="fa fa-info-circle" style={{fontSize: '27px', backgroundColor: 'inherit'}}></i> */}
+          {/* <i className="material-icons">info_outline</i>
+          </ControlButton>
+
+        </Controls>
+
+        <Controls position='bottom-center' showZoom={false} showFitView={false} showInteractive={false}>
+
+          <ControlButton>
+          <i className="material-icons">undo</i>
+          </ControlButton>
+
+        </Controls> */}
+
+        {infoDisplay && <InfoDisplay/>}
+        <Background variant="none" gap="none" backgroundColor="white" size={1}/>
+        </ReactFlow>
+        <TopBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
+      </div>
     </div>
   );
 }

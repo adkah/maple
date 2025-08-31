@@ -10,22 +10,18 @@ export default function Sidebar({ isOpen, toggleSidebar, selectedNode, edges }) 
         <div
           className="sidebar"
           style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width,
+            position: 'relative',
+            width: isOpen ? width : '0',
             height: '100vh',
             background: 'var(--sidebar-bg)',
             boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
-            overflowY: 'auto',               // allow scrolling if content overflows
-            transform: isOpen 
-              ? 'translateX(0)' 
-              : 'translateX(-100%)',        // slide off-screen
-            transition: 'transform 0.2s ease',
-            zIndex: 1000,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            transition: 'width 0.2s ease',
+            flexShrink: 0,
           }}
         >
-          <div style={{ padding: '1rem' }}>
+          <div style={{ padding: '1rem', minWidth: width }}>
             {!selectedNode 
               ? <div style= {{ fontSize: '1.3rem ' }}>
                     Select a node to edit.

@@ -2,31 +2,22 @@ import { useState } from 'react';
 import { PanelLeft } from 'lucide-react';
 
 function TopBar({ isOpen, toggleSidebar }) {
-  const sidebarWidth = '20rem';
-  const leftOffset = isOpen ? sidebarWidth : '.5rem';
-
   return (
     <div
       style={{
-        position: 'fixed',
+        position: 'absolute',
         top: '0',
-        left: leftOffset,
+        left: '0',
         display: 'flex',
         alignItems: 'center',
         zIndex: 1100,
-        transition: 'left 0.2s ease',
-        transform: isOpen
-            ? 'translateX(0%)'
-            : 'translateX(0)',
+        padding: '0.5rem',
       }}
     >
       {/* toggle button */}
       <button
         onClick={toggleSidebar}
         style={{
-          transform: isOpen
-            ? 'translateX(0)'
-            : 'translateX(0)',
           width: '2.5rem',
           height: '2.5rem',
           border: 'none',
@@ -44,7 +35,7 @@ function TopBar({ isOpen, toggleSidebar }) {
       <h1
         style={{
           fontSize: '1.5rem',
-          transition: 'margin-left 0.2s ease',
+          margin: '0 0 0 0.5rem',
         }}
       >
         Maple
