@@ -1,6 +1,6 @@
 import NodeOptions from "./node-options/NodeOptions";
 
-export default function Sidebar({ isOpen, toggleSidebar, selectedNode, edges }) {
+export default function Sidebar({ isOpen, toggleSidebar, selectedNode, edges, setNodes, setEdges, nodes }) {
     // fixed sidebar width
     const width =  '20rem';
   
@@ -23,11 +23,11 @@ export default function Sidebar({ isOpen, toggleSidebar, selectedNode, edges }) 
         >
           <div style={{ padding: '1rem', minWidth: width }}>
             {!selectedNode 
-              ? <div style= {{ fontSize: '1.3rem ' }}>
+              ? <div className={"sidebarTitle"}>
                     Select a node to edit.
                 </div>
-              : <div style= {{ fontSize: '1.3rem ' }}>
-                    <NodeOptions selectedNode={selectedNode} edges={edges}/>
+              : <div>
+                    <NodeOptions selectedNode={selectedNode} edges={edges} setNodes={setNodes} setEdges={setEdges} nodes={nodes}/>
                 </div>
             }
           </div>

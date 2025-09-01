@@ -18,6 +18,7 @@ import { Edge, EdgePreview } from './Edges';
 import InfoDisplay from './InfoDisplay';
 import TopBar from './TopBar';
 import Sidebar from './Sidebar';
+import calculateLayout from '../utils/calculateLayout';
 
 // function toggleDark(){
 //   if ('dark-mode' in  element.classList)
@@ -57,8 +58,9 @@ function Tree() {
   const tree = useReactFlow()
   const [infoDisplay, setInfoDisplay] = useState(false)
   const [previewActive, setPreviewActive] = useState(false)
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedNode, setSelectedNode] = useState(null);
+  const [freeDrag, setFreeDrag] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [showMoreControls, setShowMoreControls] = useState(false)
   const proOptions = { hideAttribution: true };
@@ -147,6 +149,8 @@ function Tree() {
     const newNodeId = (Date.now()).toString();
     setSelectedNode(node);
     setIsSidebarOpen(true)
+
+    return
 
     if (node.type !== 'previewNode' && previewActive) {removePreviews()}
 
@@ -334,7 +338,7 @@ function Tree() {
       display: 'flex',
       flexDirection: 'row'
     }}>
-      <Sidebar isOpen={isSidebarOpen} selectedNode={selectedNode} edges={edges}/>
+      <Sidebar isOpen={isSidebarOpen} selectedNode={selectedNode} edges={edges} setNodes={setNodes} setEdges={setEdges} nodes={nodes}/>
       <div style={{ 
         flex: 1,
         position: 'relative',
@@ -342,7 +346,7 @@ function Tree() {
         height: '100%'
       }}>
         <ReactFlow
-          // nodesDraggable={false}
+          nodesDraggable={freeDrag}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           className="canvas"
@@ -353,7 +357,7 @@ function Tree() {
           snapToGrid
           snapGrid={[10, defaultY]}
           preventScrolling={true}
-          nodes={nodes}
+          nodes={!freeDrag ? calculateLayout(nodes) : nodes}
           edges={edges}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
