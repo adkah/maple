@@ -18,9 +18,48 @@ const defaultStraightX = 0;
 // ];
 
 const initialNodes = [
-  { id: '1', type: 'treeNode', position: { x: 0, y: 0}, data: { label: 'XP' }, deletable: false },
-  { id: '2', type: 'treeNode', position: { x: defaultX, y: defaultY}, data: { label: "XP" }, parentId: '1' },
-  { id: '3', type: 'treeNode', position: { x: -defaultX, y: defaultY}, data: { label: 'XP' }, parentId: '1' },
+  { 
+    id: '1', 
+    type: 'treeNode', 
+    position: { x: 0, y: 0}, 
+    deletable: false,
+    data: {
+      label: 'XP', 
+      siblings: {
+        left: [],
+        right: [],
+      },
+      children: ["2", "3"],
+    }
+  },
+  { 
+    id: '2', 
+    type: 'treeNode', 
+    position: { x: 0, y: 0}, 
+    parentId: '1',
+    data: {
+      label: "XP",
+      siblings: {
+        left: [],
+        right: ["3"],
+      },
+      children: [],
+    }
+  },
+  { 
+    id: '3', 
+    type: 'treeNode', 
+    position: { x: 0, y: 0}, 
+    parentId: '1' ,
+    data: {
+      label: 'XP',
+      siblings: {
+        left: ["2"],
+        right: [],
+      },
+      children: [],
+    }
+  },
 ];
 
   function getEdges(nodes){
@@ -41,22 +80,22 @@ const initialNodes = [
           id: ('e' + nodes[i].parentId + '-' + nodes[i].id + 'triangle-left'),
           source: nodes[i].parentId,
           target: nodes[i].id,
-          targetHandle: '13lefttriangle',
+          targetHandle: nodes[i].id + 'lefttriangle',
           type: 'edge'
         }
         var sourceToRight = {
           id: ('e' + nodes[i].parentId + '-' + nodes[i].id + 'triangle-right'),
           source: nodes[i].parentId,
           target: nodes[i].id,
-          targetHandle: '13righttriangle',
+          targetHandle: nodes[i].id + 'righttriangle',
           type: 'edge'
         }
         var leftToRight = {
           id: ('e' + nodes[i].parentId + '-' + nodes[i].id + 'triangle-middle'),
           source: nodes[i].id,
           target: nodes[i].id,
-          sourceHandle: '13lefttrianglesource',
-          targetHandle: '13righttriangle',
+          sourceHandle: nodes[i].id + 'lefttrianglesource',
+          targetHandle: nodes[i].id + 'righttriangle',
           type: 'edge'
         }
         // console.log(sourceToLeft)

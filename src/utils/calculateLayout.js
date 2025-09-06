@@ -16,19 +16,18 @@ function calculateLayout(nodes) {
     const node = nodeMap.get(nodeId);
     if (!node) return { leftWidth: 0, rightWidth: 0 };
     
-    const children = nodes.filter(n => n.parentId === nodeId);
+    const children = node.data.children || [];
     
     if (children.length === 0) {
       const labelWidth = measureTextWidth(node.data.label || '');
       return { leftWidth: labelWidth / 2, rightWidth: labelWidth / 2 };
     }
     
-    const childWidths = children.map(child => calculateNodeWidth(child.id));
+    const childWidths = children.map(childId => calculateNodeWidth(childId));
     
     let maxStep = 0;
     for (let i = 0; i < children.length - 1; i++) {
-        
-      const space = childWidths[i].rightWidth + 40 + childWidths[i + 1].leftWidth; // 80px horizontal spacing
+      const space = childWidths[i].rightWidth + 40 + childWidths[i + 1].leftWidth; // 40px horizontal spacing
       maxStep = Math.max(maxStep, space);
     }
     
@@ -47,20 +46,23 @@ function calculateLayout(nodes) {
     const node = nodeMap.get(nodeId);
     if (!node) return;
     
-    const children = nodes.filter(n => n.parentId === nodeId);
+    const children = node.data.children || [];
     
     if (children.length > 0) {
       const { step } = calculateNodeWidth(nodeId);
       
       const centerOffset = (children.length - 1) * step / 2;
       
-      children.forEach((child, index) => {
+      children.forEach((childId, index) => {
+        const child = nodeMap.get(childId);
+        if (!child) return;
+        
         const relativeX = (index * step) - centerOffset;
         
         child.position.x = relativeX;
         child.position.y = 80;
         
-        assignRelativePositions(child.id);
+        assignRelativePositions(childId);
       });
     }
   };

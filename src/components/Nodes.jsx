@@ -11,8 +11,12 @@ export function TreeNode(props) {
         className='tree-node'
         style={{
           color: props.selected
-            ? '#2e95d3'
-            : ''
+            ? props.data.label === ''
+              ? '#78aecf'
+              : '#2e95d3'
+            : props.data.label === ''
+              ? '#b3b3b3'
+              : ''
         }}
       >
         <div
@@ -20,7 +24,7 @@ export function TreeNode(props) {
           spellCheck="false"
         >
           <div className='animated'>
-            {props.data.label}
+            {props.data.label === '' ? '<>' : props.data.label}
           </div>
         </div>
 
@@ -61,24 +65,5 @@ export function TriangleNode(props) {
         <TriangleHandle type='target' position={Position.Right} id={props.id + 'righttriangle'} />
       </div>
     </>
-  );
-}
-
-export function NodePreview(props) {
-  return (
-    <div className='node-preview nodrag'
-      style={{
-        color: props.selected
-          ? '#2e95d3'
-          : ''
-      }}
-    >
-      <div
-        className='node-text'
-      >
-        XP
-      </div>
-      <Handle type='target' position={Position.Top} />
-    </div>
   );
 }

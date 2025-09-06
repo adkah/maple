@@ -229,6 +229,38 @@ h2 {
   cursor: pointer;
 }
 
+.node-button {
+  width: 250px;
+  border-radius: 10px;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: white;
+  cursor: pointer;
+}
+
+kbd {
+  font-weight: 500;
+  font-family: inherit;
+  color: #111827;
+  background-color: rgb(229, 229, 229);
+  box-shadow: 0 0 0 1px rgb(17 24 39 / 10%),0 3px 0 rgb(17 24 39 / 10%);
+  font-size: .875em;
+  border-radius: .3125rem;
+  padding-top: .1875em;
+  padding-inline-end: .375em;
+  padding-bottom: .1875em;
+  padding-inline-start: .375em;
+}
+
+.add-node-button {
+  background-color: rgb(46, 149, 211);
+}
+
+.delete-node-button {
+  background-color: #dc3545;
+}
+
 .edgebutton {
   text-align: center;
   color: black;
