@@ -358,13 +358,13 @@ export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
       <h4>Add Nodes</h4>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <button 
-          className="node-button add-node-button" 
+          className="node-button" 
           onClick={addChild}
         >
           Add Child (<kbd>Ctrl</kbd> + <kbd>N</kbd>)
         </button>
         <button 
-          className="node-button add-node-button" 
+          className="node-button" 
           onClick={addParent}
         >
           Add Parent (<kbd>Ctrl</kbd> + <kbd>P</kbd>)
@@ -372,13 +372,13 @@ export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
         {selectedNode.parentId && (
           <>
             <button 
-              className="node-button add-node-button" 
+              className="node-button" 
               onClick={addSiblingLeft}
             >
               Add Sibling (Left) (<kbd>Ctrl</kbd> + <kbd>L</kbd>)
             </button>
             <button 
-              className="node-button add-node-button" 
+              className="node-button" 
               onClick={addSiblingRight}
             >
               Add Sibling (Right) (<kbd>Ctrl</kbd> + <kbd>R</kbd>)

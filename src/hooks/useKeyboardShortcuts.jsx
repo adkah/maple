@@ -25,6 +25,10 @@ function useKeyboardShortcuts(selectedNode, actions) {
                 event.preventDefault();
                 actions.deleteNode();
             }
+            if (event.ctrlKey && event.key === 't' && actions.convertToTriangle) {
+                event.preventDefault();
+                actions.convertToTriangle();
+            }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => {

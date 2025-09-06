@@ -235,6 +235,7 @@ h2 {
   border: none;
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
+  background-color: rgb(46, 149, 211);
   color: white;
   cursor: pointer;
 }
@@ -251,10 +252,6 @@ kbd {
   padding-inline-end: .375em;
   padding-bottom: .1875em;
   padding-inline-start: .375em;
-}
-
-.add-node-button {
-  background-color: rgb(46, 149, 211);
 }
 
 .delete-node-button {
