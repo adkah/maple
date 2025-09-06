@@ -1,6 +1,3 @@
-const defaultX = 50;
-const defaultY = 80;
-
 const resetNodes = [
   { 
     id: '1', 

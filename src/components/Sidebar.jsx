@@ -1,7 +1,6 @@
 import NodeOptions from "./node-options/NodeOptions";
 
 export default function Sidebar({ isOpen, toggleSidebar, selectedNode, edges, setSelectedNode }) {
-    // fixed sidebar width
     const width =  '20rem';
   
     return (

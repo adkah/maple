@@ -4,6 +4,7 @@ import AddNodeButtons from "./AddNodeButtons";
 import DeleteNodeButton from "./DeleteNodeButton";
 
 export default function NodeOptions({ selectedNode, edges, setSelectedNode }) {
+
     return (
       <>
         <NodeName selectedNode={selectedNode} edges={edges} />

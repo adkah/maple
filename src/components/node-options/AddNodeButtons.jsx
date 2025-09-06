@@ -1,4 +1,5 @@
 import { useReactFlow } from 'reactflow';
+import useKeyboardShortcuts from '../../hooks/useKeyboardShortcuts';
 
 export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
   const { setNodes, setEdges, getNodes, getEdges, setCenter, fitView } = useReactFlow();
@@ -345,6 +346,13 @@ export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
     }, 100);
   };
 
+  useKeyboardShortcuts(selectedNode, { 
+    addChild, 
+    addParent, 
+    addSiblingLeft, 
+    addSiblingRight 
+  });
+
   return (
     <div style={{ marginTop: '1rem' }}>
       <h4>Add Nodes</h4>
@@ -353,13 +361,13 @@ export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
           className="node-button add-node-button" 
           onClick={addChild}
         >
-          Add Child (<kbd>Cmd</kbd> + <kbd>N</kbd>)
+          Add Child (<kbd>Ctrl</kbd> + <kbd>N</kbd>)
         </button>
         <button 
           className="node-button add-node-button" 
           onClick={addParent}
         >
-          Add Parent (<kbd>Cmd</kbd> + <kbd>P</kbd>)
+          Add Parent (<kbd>Ctrl</kbd> + <kbd>P</kbd>)
         </button>
         {selectedNode.parentId && (
           <>
@@ -367,13 +375,13 @@ export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
               className="node-button add-node-button" 
               onClick={addSiblingLeft}
             >
-              Add Sibling (Left) (<kbd>Cmd</kbd> + <kbd>L</kbd>)
+              Add Sibling (Left) (<kbd>Ctrl</kbd> + <kbd>L</kbd>)
             </button>
             <button 
               className="node-button add-node-button" 
               onClick={addSiblingRight}
             >
-              Add Sibling (Right) (<kbd>Cmd</kbd> + <kbd>R</kbd>)
+              Add Sibling (Right) (<kbd>Ctrl</kbd> + <kbd>R</kbd>)
             </button>
           </>
         )}

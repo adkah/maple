@@ -20,7 +20,6 @@ const defaultY = 80;
 const nodeTypes = { treeNode: TreeNode, triangleNode: TriangleNode}
 const edgeTypes = { edge: Edge }
 
-
 function Tree() {
   const tree = useReactFlow()
   const [infoDisplay, setInfoDisplay] = useState(false)

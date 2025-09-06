@@ -73,6 +73,7 @@ function calculateLayout(nodes) {
     assignRelativePositions(rootNode.id);
   });
   
+  console.log(nodes);
   return nodes;
 }
 
