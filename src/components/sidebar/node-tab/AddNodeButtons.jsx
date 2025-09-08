@@ -1,5 +1,5 @@
 import { useReactFlow } from 'reactflow';
-import useKeyboardShortcuts from '../../hooks/useKeyboardShortcuts';
+import useKeyboardShortcuts from '../../../hooks/useKeyboardShortcuts';
 
 export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
   const { setNodes, setEdges, getNodes, getEdges, setCenter, fitView } = useReactFlow();
@@ -60,11 +60,6 @@ export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
     
     // Select the newly created node for sidebar
     setSelectedNode(newNode);
-    
-    // Center the view on the new node (position will be calculated by layout)
-    setTimeout(() => {
-      setCenter(0, 80, { zoom: 1 });
-    }, 100);
   };
 
   const addSiblingLeft = () => {
@@ -154,11 +149,6 @@ export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
     
     // Select the newly created node for sidebar
     setSelectedNode(newNode);
-    
-    // Center the view on the new node (position will be calculated by layout)
-    setTimeout(() => {
-      setCenter(0, 80, { zoom: 1 });
-    }, 100);
   };
 
   const addSiblingRight = () => {
@@ -248,11 +238,6 @@ export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
     
     // Select the newly created node for sidebar
     setSelectedNode(newNode);
-    
-    // Center the view on the new node (position will be calculated by layout)
-    setTimeout(() => {
-      setCenter(0, 80, { zoom: 1 });
-    }, 100);
   };
 
   const addParent = () => {
@@ -339,11 +324,6 @@ export default function AddNodeButtons({ selectedNode, setSelectedNode }) {
     
     // Select the newly created parent node for sidebar
     setSelectedNode(newParentNode);
-    
-    // Center the view on the new parent node (position will be calculated by layout)
-    setTimeout(() => {
-      setCenter(0, 0, { zoom: 1 });
-    }, 100);
   };
 
   useKeyboardShortcuts(selectedNode, { 

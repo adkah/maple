@@ -24,7 +24,8 @@ const initialNodes = [
     position: { x: 0, y: 0}, 
     deletable: false,
     data: {
-      label: 'XP', 
+      label: 'XP',
+      textStyles: [],
       siblings: {
         left: [],
         right: [],
@@ -38,7 +39,8 @@ const initialNodes = [
     position: { x: 0, y: 0}, 
     parentId: '1',
     data: {
-      label: "XP",
+      label: 'XP',
+      textStyles: [],
       siblings: {
         left: [],
         right: ["3"],
@@ -53,6 +55,7 @@ const initialNodes = [
     parentId: '1' ,
     data: {
       label: 'XP',
+      textStyles: [],
       siblings: {
         left: ["2"],
         right: [],

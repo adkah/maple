@@ -39,9 +39,9 @@ export default function NodeName({ selectedNode }) {
 
     return (
         <>
-            <strong>
+            <h4>
                 Name:&nbsp;
-            </strong>
+            </h4>
             <input
                 ref={inputRef}
                 type="text"

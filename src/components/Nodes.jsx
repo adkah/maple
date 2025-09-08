@@ -5,6 +5,25 @@ import {
 import { TreeHandle, MovementHandle, TriangleHandle } from './Handles';
 
 export function TreeNode(props) {
+  const getLabel = () => {
+    const textStyles = props.data.textStyles || [];
+    
+      let element = props.data.label;
+      
+      if (textStyles.includes('bold')) {
+        element = <strong>{element}</strong>;
+      }
+      if (textStyles.includes('italic')) {
+        element = <em>{element}</em>;
+      }
+      if (textStyles.includes('underline')) {
+        element = <u>{element}</u>;
+      }
+      
+      return element;
+
+  }
+
   return (
     <>
       <div
@@ -24,7 +43,9 @@ export function TreeNode(props) {
           spellCheck="false"
         >
           <div className='animated'>
-            {props.data.label === '' ? '<>' : props.data.label}
+            {props.data.label === ''
+            ? '<>'
+            : getLabel()}
           </div>
         </div>
 

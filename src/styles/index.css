@@ -230,14 +230,42 @@ h2 {
 }
 
 .node-button {
-  width: 250px;
+  width: 100%;
+  line-height: 2;
   border-radius: 10px;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   font-size: 0.9rem;
   background-color: rgb(46, 149, 211);
   color: white;
   cursor: pointer;
+}
+
+.slider-reset-button {
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.slider-reset-button:hover {
+  background-color: #0056b3;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.slider-label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 kbd {
@@ -323,6 +351,91 @@ kbd {
 
 .sidebarTitle {
   font-size: 1rem;
+}
+
+/* Sidebar Tabs */
+.sidebar-tabs {
+  background: rgba(0, 0, 0, 0.05);
+  /* border-right: 1px solid rgba(0, 0, 0, 0.1); */
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem;
+  gap: 0.25rem;
+}
+
+.sidebar-tab {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 1rem;
+  /* transition: all 0.1s ease; */
+  border-radius: .6rem;
+  position: relative;
+}
+
+.sidebar-tab:hover {
+  background: rgba(0, 0, 0, 0.08);
+  /* color: #0077ff; */
+}
+
+.sidebar-tab.active {
+  background: rgba(0, 0, 0, 0.12);
+  /* color: #0077ff; */
+}
+
+.sidebar-tab.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  /* background: #0077ff; */
+}
+
+.tab-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.tab-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Dark mode adjustments for tabs */
+@media (prefers-color-scheme: dark) {
+  .sidebar-tabs {
+    background: rgba(255, 255, 255, 0.05);
+    /* border-right: 1px solid rgba(255, 255, 255, 0.1); */
+  }
+  
+  .sidebar-tab:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .sidebar-tab.active {
+    background: rgba(255, 255, 255, 0.08);
+    color: #0077ff;
+  }
 }
 
 .animate-button {

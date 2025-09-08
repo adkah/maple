@@ -1,5 +1,5 @@
 import { useReactFlow } from 'reactflow';
-import useKeyboardShortcuts from '../../hooks/useKeyboardShortcuts';
+import useKeyboardShortcuts from '../../../hooks/useKeyboardShortcuts';
 
 export default function DeleteNodeButton({ selectedNode, setSelectedNode }) {
   const { deleteElements, getNodes, setNodes, getEdges, setEdges } = useReactFlow();

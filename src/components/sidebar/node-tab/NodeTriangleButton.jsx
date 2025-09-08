@@ -1,5 +1,5 @@
 import { useReactFlow } from 'reactflow';
-import useKeyboardShortcuts from '../../hooks/useKeyboardShortcuts';
+import useKeyboardShortcuts from '../../../hooks/useKeyboardShortcuts';
 
 export default function NodeTriangleButton({ selectedNode, setSelectedNode }) {
     const { setNodes, setEdges, getNodes, getEdges, setCenter, fitView } = useReactFlow();
