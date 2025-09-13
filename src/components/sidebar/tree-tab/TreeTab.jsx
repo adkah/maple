@@ -1,5 +1,6 @@
 import { useReactFlow } from 'reactflow';
 import Spacing from './Spacing';
+import ResetTree from './ResetTree';
 
 export default function TreeTab({ spacing }) {
     const tree = useReactFlow()
@@ -13,6 +14,7 @@ export default function TreeTab({ spacing }) {
         <strong>Tree Settings</strong>
         <div>
             <Spacing spacing={spacing} />
+            <ResetTree />
         </div>
         </>
     )

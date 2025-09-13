@@ -5,7 +5,6 @@ function measureTextWidth(text, fontSize = '22pt', fontFamily = '"Computer Moder
   context.font = `${fontSize} ${fontFamily}`;
   
   const metrics = context.measureText(text);
-  console.log(metrics.width, 'metrics.width');
   return metrics.width;
 }
 
@@ -112,8 +111,6 @@ function calculateLayout(nodes, spacing) {
       return Math.min(min, absolutePos.x - nodeWidth / 2);
     }, Infinity);
 
-    console.log(treeBoundaryRight, treeBoundaryLeft, 'treeBoundaryRight, treeBoundaryLeft');
-
     return { treeWidth: treeBoundaryRight + Math.abs(treeBoundaryLeft), treeBoundaryLeft: treeBoundaryLeft };
   }
 
@@ -144,10 +141,8 @@ function calculateLayout(nodes, spacing) {
     treeWidth = width;
     treeBoundaryLeft = left;
     const depth = getTreeHeight(rootNode.id);
-    treeHeight = Math.max(treeHeight, depth * 100);
+    treeHeight = Math.max(treeHeight, depth * (ySpacing + 10));
   });
-
-  console.log(nodesCopy, 'nodesCopy');
   
   return { formattedNodes: nodesCopy, treeWidth, treeHeight, treeBoundaryLeft };
 }

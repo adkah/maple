@@ -1,9 +1,7 @@
-import { useReactFlow } from 'reactflow';
 import Slider from '@mui/material/Slider';
 
 export default function Spacing({ spacing }) {
     const { xSpacing, ySpacing, setXSpacing, setYSpacing } = spacing;
-    const { setCenter } = useReactFlow();
     
     const handleXChange = (event, newValue) => {
         setXSpacing(newValue);

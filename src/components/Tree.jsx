@@ -1,14 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
 import ReactFlow, {
   Background,
-  useNodesState,
-  useEdgesState,
   useReactFlow,
   ReactFlowProvider,
 } from 'reactflow';
 import 'reactflow/dist/base.css';
-import { initialNodes, initialEdges } from './initialTree';
-import { resetNodes, resetEdges } from './resetTree';
 import { TreeNode, TriangleNode } from './Nodes';
 import { Edge } from './Edges';
 import InfoDisplay from './InfoDisplay';
@@ -16,21 +12,31 @@ import TopBar from './TopBar';
 import Sidebar from './sidebar/Sidebar';
 import calculateLayout from '../utils/calculateLayout';
 import useSpacing from '../hooks/useSpacing';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 const defaultY = 80;
 const nodeTypes = { treeNode: TreeNode, triangleNode: TriangleNode}
 const edgeTypes = { edge: Edge }
 
 function Tree() {
-  const {tree, fitBounds} = useReactFlow()
+  const {tree, fitBounds, getViewport} = useReactFlow()
   const spacing = useSpacing();
   const [infoDisplay, setInfoDisplay] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedNode, setSelectedNode] = useState(null);
   const [showMoreControls, setShowMoreControls] = useState(false)
   const proOptions = { hideAttribution: true };
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  
+  const {
+    nodes,
+    onNodesChange,
+    edges,
+    setEdges,
+    onEdgesChange,
+    loadState,
+    resetState
+  } = useLocalStorage();
+
 
   function showInfo(){
     setInfoDisplay(!infoDisplay)
@@ -65,17 +71,11 @@ function Tree() {
       reader.onload = readerEvent => {
          var content = readerEvent.target.result; // this is the content!
          var userTree = JSON.parse(content)
-         setNodes(userTree.nodes)
-         setEdges(userTree.edges)
+         loadState(userTree.nodes, userTree.edges)
       }
    }
    input.click();
   }
-
-  function resetTree() {
-    let reset = confirm('Reset the tree? All changes will be lost!')
-    if (reset) {setNodes(resetNodes), setEdges(resetEdges)} else return
-    }
 
   function toggleControls(){
     setShowMoreControls(!showMoreControls)
@@ -109,6 +109,7 @@ function Tree() {
     return calculateLayout(nodes, spacing);
   }, [nodes, spacing]);
 
+
   useEffect(() => {
     if (layoutData.treeWidth > 0 && layoutData.treeHeight > 0) {
       fitBounds(
@@ -119,7 +120,7 @@ function Tree() {
           "y": -layoutData.treeHeight/10
         },
         {
-          duration: 100
+          duration: 0
         }
       );
     }

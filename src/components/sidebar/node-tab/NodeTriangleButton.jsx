@@ -55,8 +55,6 @@ export default function NodeTriangleButton({ selectedNode, setSelectedNode }) {
             
             triangleEdges.push(sourceToLeft, sourceToRight, leftToRight);
         }
-
-        console.log(updatedNodes);
         
         setNodes(updatedNodes);
         setEdges([...filteredEdges, ...triangleEdges]);

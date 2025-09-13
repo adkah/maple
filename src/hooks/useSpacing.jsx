@@ -7,7 +7,12 @@ const useSpacing = () => {
     const [xSpacing, setXSpacing] = useState(defaultX);
     const [ySpacing, setYSpacing] = useState(defaultY);
 
-    return { xSpacing, ySpacing, setXSpacing, setYSpacing };
+    const resetSpacing = () => {
+        setXSpacing(defaultX);
+        setYSpacing(defaultY);
+    }
+
+    return { xSpacing, ySpacing, setXSpacing, setYSpacing, resetSpacing };
 }
 
 export default useSpacing;
