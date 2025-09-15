@@ -15,6 +15,7 @@ export function TreeHandle(props){
   export function MovementHandle(props){
     return (
       <Handle
+      isConnectable={true}
       id={props.id}
       type={props.type}
       position={props.position}

@@ -8,8 +8,8 @@ function measureTextWidth(text, fontSize = '22pt', fontFamily = '"Computer Moder
   return metrics.width;
 }
 
-function calculateLayout(nodes, spacing) {
-  const { xSpacing, ySpacing } = spacing;
+function calculateLayout(nodes, settings) {
+  const { xSpacing, ySpacing } = settings;
 
   // Create a deep copy of nodes to avoid mutating the original array
   const nodesCopy = nodes.map(node => ({
@@ -144,6 +144,7 @@ function calculateLayout(nodes, spacing) {
     treeHeight = Math.max(treeHeight, depth * (ySpacing + 10));
   });
   
+  console.log(nodesCopy)
   return { formattedNodes: nodesCopy, treeWidth, treeHeight, treeBoundaryLeft };
 }
 

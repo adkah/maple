@@ -50,7 +50,8 @@ export function TreeNode(props) {
         </div>
 
         <TreeHandle type='target' position={Position.Top} />
-        <MovementHandle type='target' position={Position.Bottom} id={props.id} />
+        <MovementHandle type='target' position={Position.Bottom} id={`mt${props.id}`} />
+        <MovementHandle type='source' position={Position.Bottom} id={`ms${props.id}`} />
         <TreeHandle type='source' position={Position.Bottom} />
       </div>
     </>

@@ -1,26 +1,28 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import ReactFlow, {
   Background,
   useReactFlow,
   ReactFlowProvider,
+  addEdge
 } from 'reactflow';
 import 'reactflow/dist/base.css';
 import { TreeNode, TriangleNode } from './Nodes';
-import { Edge } from './Edges';
+import { Edge, MovementEdge } from './Edges';
 import InfoDisplay from './InfoDisplay';
 import TopBar from './TopBar';
 import Sidebar from './sidebar/Sidebar';
 import calculateLayout from '../utils/calculateLayout';
-import useSpacing from '../hooks/useSpacing';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { SettingsProvider, useSettings } from '../contexts/SettingsContext';
 
 const defaultY = 80;
 const nodeTypes = { treeNode: TreeNode, triangleNode: TriangleNode}
-const edgeTypes = { edge: Edge }
+const edgeTypes = { edge: Edge, movementEdge: MovementEdge }
 
 function Tree() {
-  const {tree, fitBounds, getViewport} = useReactFlow()
-  const spacing = useSpacing();
+  const {tree, fitBounds} = useReactFlow()
+  const { xSpacing, ySpacing } = useSettings();
+  const spacing = { xSpacing, ySpacing };
   const [infoDisplay, setInfoDisplay] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedNode, setSelectedNode] = useState(null);
@@ -34,7 +36,6 @@ function Tree() {
     setEdges,
     onEdgesChange,
     loadState,
-    resetState
   } = useLocalStorage();
 
 
@@ -85,16 +86,19 @@ function Tree() {
     setIsSidebarOpen(!isSidebarOpen)
   }
 
-  function onConnect(params){
-    for (let i=0; i<nodes.length; i++){
-      if (nodes[i].id == params.target){
-        var connectedNode = nodes[i].id
-        break;
-      }
-    }
-    var newConnection = {...params, targetHandle: connectedNode, type: 'smoothstep'}
-    setEdges([...edges, newConnection]);
-  }
+  const onConnect = useCallback(
+    (connection) => {
+      setEdges((oldEdges) => addEdge({
+        id: `m${connection.source}-${connection.target}`,
+        source: connection.source,
+        target: connection.target,
+        targetHandle: connection.targetHandle,
+        type: 'movementEdge',
+      }, oldEdges));
+      console.log("onConnect", connection)
+    },
+    [setEdges],
+  );
 
   const onNodeClick = (event, node) => {
     setSelectedNode(node);
@@ -127,7 +131,7 @@ function Tree() {
   }, [layoutData, fitBounds]);
 
   return (
-    <div style={{ 
+    <div id='tree-canvas'style={{ 
       width: '100vw', 
       height: '100vh',
       display: 'flex',
@@ -138,7 +142,6 @@ function Tree() {
         selectedNode={selectedNode}
         edges={edges}
         setSelectedNode={setSelectedNode}
-        spacing={spacing}
       />
       <div style={{ 
         flex: 1,
@@ -151,15 +154,11 @@ function Tree() {
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           className="canvas"
-          // minZoom={1 - (nodes.length * 0.025)}
           zoomOnScroll={false}
           zoomOnPinch={false}
           zoomOnDoubleClick={false}
           minZoom={-100}
           maxZoom={1}
-          // fitView={true}
-          snapToGrid
-          snapGrid={[10, defaultY]}
           preventScrolling={true}
           nodes={layoutData.formattedNodes}
           nodesDraggable={false}
@@ -171,7 +170,6 @@ function Tree() {
           onNodeClick={onNodeClick}
           onPaneClick={onPaneClick}
           proOptions={proOptions}
-          connectionLineType={'default'}
         >
 
         {infoDisplay && <InfoDisplay/>}
@@ -185,9 +183,11 @@ function Tree() {
 
 function TreeWithProvider(props) {
   return (
-    <ReactFlowProvider>
-      <Tree {...props} />
-    </ReactFlowProvider>
+    <SettingsProvider>
+      <ReactFlowProvider>
+        <Tree {...props} />
+      </ReactFlowProvider>
+    </SettingsProvider>
   );
 }
 

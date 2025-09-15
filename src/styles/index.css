@@ -184,8 +184,9 @@ body {
 }
 
 .react-flow__handle{
-  visibility: hidden;
-  padding: 2px
+  /* visibility: hidden; */
+  background-color: #0077ff;
+  border-radius: 50%;
 }
 
 .App-logo {

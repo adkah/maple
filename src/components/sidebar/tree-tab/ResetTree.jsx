@@ -1,12 +1,12 @@
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import { resetNodes, resetEdges } from '../../resetTree';
 import { useReactFlow } from 'reactflow';
-import useSpacing from '../../../hooks/useSpacing';
+import { useSettings } from '../../../contexts/SettingsContext';
 
 export default function ResetTree() {
     const { resetState } = useLocalStorage();
     const {setNodes, setEdges } = useReactFlow();
-    const { resetSpacing } = useSpacing();
+    const { resetAllSettings } = useSettings();
 
     const handleReset = () => {
         let reset = confirm('Reset the tree? All changes will be lost!')
@@ -14,7 +14,7 @@ export default function ResetTree() {
           resetState(resetNodes, resetEdges);
           setNodes(resetNodes);
           setEdges(resetEdges);
-          resetSpacing();
+          resetAllSettings();
         } else return
     }
 

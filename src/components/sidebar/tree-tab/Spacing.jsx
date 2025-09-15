@@ -1,7 +1,8 @@
 import Slider from '@mui/material/Slider';
+import { useSettings } from '../../../contexts/SettingsContext';
 
-export default function Spacing({ spacing }) {
-    const { xSpacing, ySpacing, setXSpacing, setYSpacing } = spacing;
+export default function Spacing() {
+    const { xSpacing, ySpacing, setXSpacing, setYSpacing, resetSpacing } = useSettings();
     
     const handleXChange = (event, newValue) => {
         setXSpacing(newValue);

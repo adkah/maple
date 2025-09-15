@@ -3,7 +3,7 @@ import NodeTab from "./node-tab/NodeTab";
 import { SquareMousePointer, Network } from 'lucide-react';
 import TreeTab from './tree-tab/TreeTab';
 
-export default function Sidebar({ isOpen, toggleSidebar, selectedNode, edges, setSelectedNode, spacing }) {
+export default function Sidebar({ isOpen, toggleSidebar, selectedNode, edges, setSelectedNode }) {
     const width = '20rem';
     const [activeTab, setActiveTab] = useState('node');
     
@@ -19,7 +19,7 @@ export default function Sidebar({ isOpen, toggleSidebar, selectedNode, edges, se
                     ? <div className="sidebarTitle">Select a node to edit.</div>
                     : <NodeTab selectedNode={selectedNode} edges={edges} setSelectedNode={setSelectedNode}/>;
             case 'tree':
-                return <TreeTab spacing={spacing} />;
+                return <TreeTab />;
             default:
                 return <div className="sidebarTitle">Select a tab.</div>;
         }

@@ -1,6 +1,7 @@
 const defaultX = 65;
 const defaultY = 80;
 const defaultStraightX = 0;
+import { MarkerType } from 'reactflow';
 
 // const initialNodes = [
 //   { id: '1', type: 'treeNode', position: { x: 0, y: 0}, data: { label: 'S' }, deletable: false },
@@ -74,7 +75,7 @@ const initialNodes = [
             id: ('e' + nodes[i].parentId + '-' + nodes[i].id),
             source: nodes[i].parentId,
             target: nodes[i].id,
-            type: 'edge'
+            type: 'edge',
           }
           edges.push(currentNode)
         }

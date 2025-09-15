@@ -1,8 +1,9 @@
 import { useReactFlow } from 'reactflow';
 import Spacing from './Spacing';
 import ResetTree from './ResetTree';
+import MovementStyle from './MovementStyle';
 
-export default function TreeTab({ spacing }) {
+export default function TreeTab() {
     const tree = useReactFlow()
 
     const handleClick = () => {
@@ -13,7 +14,8 @@ export default function TreeTab({ spacing }) {
         <>
         <strong>Tree Settings</strong>
         <div>
-            <Spacing spacing={spacing} />
+            <Spacing />
+            <MovementStyle />
             <ResetTree />
         </div>
         </>
